@@ -2,21 +2,16 @@ import random
 from math import sin, cos, pi, log
 from tkinter import *
 
-CANVAS_WIDTH = 1920  # 畫布的宽
+CANVAS_WIDTH = 1900  # 畫布的宽
 CANVAS_HEIGHT = 1080  # 畫布的高
-CANVAS_CENTER_X = CANVAS_WIDTH / 2  # 畫布中心的X轴坐标
-CANVAS_CENTER_Y = CANVAS_HEIGHT / 2  # 畫布中心的Y轴坐标
+CANVAS_CENTER_X = CANVAS_WIDTH / 2  
+CANVAS_CENTER_Y = CANVAS_HEIGHT / 2  
 IMAGE_ENLARGE = 11  # 放大比例
 HEART_COLOR = "#ff2121"  # 颜色
 
 
 def heart_function(t, shrink_ratio: float = IMAGE_ENLARGE):
-    """
-    “愛心函数生成器”
-    :param shrink_ratio: 放大比例
-    :param t: 參數
-    :return: 座標
-    """
+    
     # 基礎函數
     x = 16 * (sin(t) ** 3)
     y = -(13 * cos(t) - 5 * cos(2 * t) - 2 * cos(3 * t) - cos(4 * t))
@@ -174,9 +169,17 @@ def draw(main: Tk, render_canvas: Canvas, render_heart: Heart, render_frame=0):
 
 
 if __name__ == '__main__':
-    root = Tk()  
+    root = Tk()
+    root.attributes('-fullscreen', True)  # 讓視窗全螢幕顯示
+
+    # 獲取螢幕的寬度和高度
+    CANVAS_WIDTH = root.winfo_screenwidth()
+    CANVAS_HEIGHT = root.winfo_screenheight()
+    CANVAS_CENTER_X = CANVAS_WIDTH / 2
+    CANVAS_CENTER_Y = CANVAS_HEIGHT / 2
+
     canvas = Canvas(root, bg='black', height=CANVAS_HEIGHT, width=CANVAS_WIDTH)
     canvas.pack()
-    heart = Heart()  
-    draw(root, canvas, heart)  
+    heart = Heart()
+    draw(root, canvas, heart)
     root.mainloop()
